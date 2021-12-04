@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/qiuyuhome/go-gin-blog-api/global"
+	"github.com/qiuyuhome/go-gin-blog-api/internal/model"
 	"github.com/qiuyuhome/go-gin-blog-api/internal/routers"
 	"github.com/qiuyuhome/go-gin-blog-api/pkg/setting"
 	"log"
@@ -14,6 +15,11 @@ func init() {
 	err := setupSetting()
 	if err != nil {
 		log.Fatalf("init.setupSetting err: %v", err)
+	}
+
+	err = setupDbEngine()
+	if err != nil {
+		log.Fatalf("init.setupDBEngine err: %v", err)
 	}
 }
 
@@ -56,6 +62,16 @@ func setupSetting() error {
 
 	global.ServerSetting.ReadTimeout *= time.Second
 	global.ServerSetting.WriteTimeout *= time.Second
+
+	return nil
+}
+
+func setupDbEngine() error {
+	var err error
+	global.DBEngine, err = model.NewDBEngine(global.DatabaseSetting)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
