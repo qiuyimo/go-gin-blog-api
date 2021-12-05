@@ -1,6 +1,6 @@
 Server:
   RunMode: debug
-  HttpPort: 80
+  HttpPort: 8888
   ReadTimeout: 60
   WriteTimeout: 60
 App:
@@ -12,8 +12,8 @@ App:
 Database:
   DBType: mysql
   UserName: root
-  Password: qiuyu123
-  Host: 127.0.0.1:3306
+  Password: zjmedia302e
+  Host: 192.168.6.101:3306
   DBName: gin_blog
   TablePrefix: blog_
   Charset: utf8mb4
