@@ -5,7 +5,9 @@ import (
 	"github.com/qiuyuhome/go-gin-blog-api/global"
 	"github.com/qiuyuhome/go-gin-blog-api/internal/model"
 	"github.com/qiuyuhome/go-gin-blog-api/internal/routers"
+	"github.com/qiuyuhome/go-gin-blog-api/pkg/logger"
 	"github.com/qiuyuhome/go-gin-blog-api/pkg/setting"
+	"gopkg.in/natefinch/lumberjack.v2"
 	"log"
 	"net/http"
 	"time"
@@ -21,6 +23,12 @@ func init() {
 	if err != nil {
 		log.Fatalf("init.setupDBEngine err: %v", err)
 	}
+
+	err = setupLogger()
+	if err != nil {
+		log.Fatalf("init.setupLogger err: %v", err)
+	}
+
 }
 
 func main() {
@@ -72,6 +80,18 @@ func setupDbEngine() error {
 	if err != nil {
 		return err
 	}
+
+	return nil
+}
+
+func setupLogger() error {
+	fileName := global.AppSetting.LogSavePath + "/" + global.AppSetting.LogFileName + global.AppSetting.LogFileExt
+	global.Logger = logger.NewLogger(&lumberjack.Logger{
+		Filename:  fileName,
+		MaxSize:   500,
+		MaxAge:    10,
+		LocalTime: true,
+	}, "", log.LstdFlags).WithCaller(2)
 
 	return nil
 }
