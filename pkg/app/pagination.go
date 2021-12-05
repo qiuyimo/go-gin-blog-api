@@ -2,6 +2,7 @@ package app
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/qiuyuhome/go-gin-blog-api/global"
 	"github.com/qiuyuhome/go-gin-blog-api/pkg/convert"
 )
 
@@ -14,4 +15,23 @@ func GetPage(c *gin.Context) int {
 	return page
 }
 
-// todo.
+func GetPageSize(c *gin.Context) int {
+	pageSize := convert.StrTo(c.Query("page_size")).MustInt()
+	if pageSize <= 0 {
+		return global.AppSetting.DefaultPageSize
+	}
+	if pageSize > global.AppSetting.MaxPageSize {
+		return global.AppSetting.MaxPageSize
+	}
+
+	return pageSize
+}
+
+func GetPageOffset(page, pageSize int) int {
+	result := 0
+	if page > 0 {
+		result = (page - 1) * pageSize
+	}
+
+	return result
+}

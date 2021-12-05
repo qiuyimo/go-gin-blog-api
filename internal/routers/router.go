@@ -14,7 +14,6 @@ func NewRouter() *gin.Engine {
 	tag := v1.NewTag()
 	apiv1 := r.Group("/api/v1")
 
-	// todo, 下面的 {} 的作用是什么?
 	{
 		apiv1.POST("/tags", tag.Create)
 		apiv1.DELETE("/tags/:id", tag.Delete)

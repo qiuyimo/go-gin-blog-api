@@ -40,7 +40,7 @@ func (e *Error) Msgf(args []interface{}) string {
 }
 
 func (e *Error) Details() []string {
-	return e.Details()
+	return e.details
 }
 
 func (e *Error) WithDetails(details ...string) *Error {
