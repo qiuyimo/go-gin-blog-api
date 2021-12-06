@@ -31,6 +31,10 @@ func init() {
 
 }
 
+// @title 博客系统
+// @version 1.0
+// @description Go 语言编程 Blog
+// @termsOfService https://github.com/qiuyuhome/go-gin-blog-api
 func main() {
 	gin.SetMode(global.ServerSetting.RunMode)
 
