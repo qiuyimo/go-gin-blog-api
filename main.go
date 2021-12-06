@@ -48,21 +48,25 @@ func main() {
 }
 
 func setupSetting() error {
+	// 使用 viper 读取配置文件, 返回 viper 实例.
 	setting, err := setting.NewSetting()
 	if err != nil {
 		return err
 	}
 
+	// 读取 app 配置, 配置文件中, key 是 `Server` 的 values, 赋值给 ServerSettingS 结构体中.
 	err = setting.ReadSection("Server", &global.ServerSetting)
 	if err != nil {
 		return err
 	}
 
+	// 读取 app 配置.
 	err = setting.ReadSection("App", &global.AppSetting)
 	if err != nil {
 		return err
 	}
 
+	// 读取数据库配置.
 	err = setting.ReadSection("Database", &global.DatabaseSetting)
 	if err != nil {
 		return err
@@ -74,6 +78,7 @@ func setupSetting() error {
 	return nil
 }
 
+// 数据库配置.
 func setupDbEngine() error {
 	var err error
 	global.DBEngine, err = model.NewDBEngine(global.DatabaseSetting)
@@ -84,6 +89,7 @@ func setupDbEngine() error {
 	return nil
 }
 
+// 配置日志.
 func setupLogger() error {
 	fileName := global.AppSetting.LogSavePath + "/" + global.AppSetting.LogFileName + global.AppSetting.LogFileExt
 	global.Logger = logger.NewLogger(&lumberjack.Logger{

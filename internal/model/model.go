@@ -8,6 +8,7 @@ import (
 	"github.com/qiuyuhome/go-gin-blog-api/pkg/setting"
 )
 
+// Model 公共的 model, 给其他 ORM 嵌入使用.
 type Model struct {
 	ID         uint32 `gorm:"primary_key" json:"id"`
 	CreatedBy  string `json:"created_by"`
@@ -18,6 +19,7 @@ type Model struct {
 	IsDel      uint8  `json:"is_del"`
 }
 
+// NewDBEngine 数据库配置
 func NewDBEngine(databaseSetting *setting.DatabaseSettingS) (*gorm.DB, error) {
 	s := "%s:%s@tcp(%s)/%s?charset=%s&parseTime=%t&loc=Local"
 	db, err := gorm.Open(databaseSetting.DBType, fmt.Sprintf(s, databaseSetting.UserName, databaseSetting.Password, databaseSetting.Host, databaseSetting.DBName, databaseSetting.Charset, databaseSetting.ParseTime))
