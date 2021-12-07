@@ -29,7 +29,7 @@ func (t Tag) Get(c *gin.Context) {}
 // @Failure 500 {object} errcode.Error "内部错误"
 // @Router /api/v1/tags [get]
 func (t Tag) List(c *gin.Context) {
-	//c.JSON(200, gin.H{"message": "ok"})
+	// c.JSON(200, gin.H{"message": "ok"})
 
 	param := struct {
 		Name  string `form:"name" binding:"max=100"`
