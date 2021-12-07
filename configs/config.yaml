@@ -12,8 +12,8 @@ App:
 Database:
   DBType: mysql
   UserName: root
-  Password: qiuyu123
-  Host: localhost:3306
+  Password: root
+  Host: 34.96.212.42:3306
   DBName: gin_blog
   TablePrefix: blog_
   Charset: utf8mb4
